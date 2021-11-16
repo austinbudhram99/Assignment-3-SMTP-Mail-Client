@@ -6,15 +6,13 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     endmsg = "\r\n.\r\n"
 
     # Choose a mail server (e.g. Google mail server) if you want to verify the script beyond GradeScope
-    mailserver = "127.0.0.1"
-    port = 1025
+    mailserver = ("127.0.0.1", 1025)
     # Create socket called clientSocket and establish a TCP connection with mailserver and port
     clientSocket = socket(AF_INET, SOCK_STREAM)
     # Fill in start
     # clientSocket = socket(AF_INET, SOCK_STREAM)
     # Fill in end
-    # clientSocket.bind((mailserver,port))
-    clientSocket.bind(("",port))
+    # clientSocket.bind(("",port))
     clientSocket.connect(mailserver)
     recv = clientSocket.recv(1024)
     print(recv)

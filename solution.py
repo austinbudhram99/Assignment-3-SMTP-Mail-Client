@@ -6,16 +6,16 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     endmsg = "\r\n.\r\n"
 
     # Choose a mail server (e.g. Google mail server) if you want to verify the script beyond GradeScope
-    mailserver = '127.0.0.1'
+    mailserver = "127.0.0.1"
     port = 1025
     # Create socket called clientSocket and establish a TCP connection with mailserver and port
-    clientSocket = socket(AF_INET,SOCK_STREAM)
+    clientSocket = socket(AF_INET, SOCK_STREAM)
     # Fill in start
     # clientSocket = socket(AF_INET, SOCK_STREAM)
     # Fill in end
     # clientSocket.bind((mailserver,port))
     clientSocket.bind(("",port))
-    clientSocket.connect(smtp_client)
+    clientSocket.connect(mailserver)
     recv = clientSocket.recv(1024)
     print(recv)
     # if recv[:3] != '220':
@@ -49,7 +49,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     # Send DATA command and print server response.
     # Fill in start
-    dataCommand = 'DATA\r\n'
+    dataCommand = 'DATA'.endmsg
     # Fill in end
     clientSocket.send(dataCommand.encode())
     print(recv1)
@@ -58,13 +58,16 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     # Send message data.
     # Fill in start
+    subject = "Subject: TESTING " + endmsg
+    clientSocket.send(subject.encode())
     messageCommand = raw_input('Please enter your message in the following field: \r\n')
-    # Fill in end
     clientSocket.send(messageCommand.encode())
-
+    # Fill in end
+    clientSocket.send(endmsg.encode())
+    recv_msg = clientSocket.recv(1024)
     # Message ends with a single period.
     # Fill in start
-    messageEndCommand = 'r\n.r\n'
+    messageEndCommand = endmsg.endmsg
     # Fill in end
     clientSocket.send(messageCommand+messageEndCommand)
     print(recv1)
@@ -73,7 +76,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     # Send QUIT command and get server response.
     # Fill in start
-    clientSocket.send('QUIT\r\n'.encode())
+    clientSocket.send('QUIT'+endmsg.encode())
     # Fill in end
     messageCommand = clientSocket.recv(1024)
     print (messageCommand)

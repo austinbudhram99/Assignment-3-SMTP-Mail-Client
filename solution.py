@@ -45,7 +45,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     # Fill in end
     # recv1 = clientSocket.recv(1024)
     # print(recv1)
-    rcpttoCommand = 'RCPT TO: <127.0.0.1>\r\n'
+    rcpttoCommand = 'RCPT TO: <smtp.gmail.com>\r\n'
     # Fill in end
     clientSocket.send(rcpttoCommand.encode())
     #if recv1[:3] != '250':
